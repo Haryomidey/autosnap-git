@@ -12,7 +12,10 @@ const startWatch = async (git, options) => {
   await ensureRepo(git, logger);
   await ensureFirstRunWarning(process.cwd(), logger);
 
-  logger.headline("👀 Watch mode enabled (debounce 5s)");
+  const intervalSeconds = Number(options.interval) || 5;
+  const debounceMs = Math.max(1, intervalSeconds) * 1000;
+
+  logger.headline(`👀 Watch mode enabled (debounce ${intervalSeconds}s)`);
 
   let debounceTimer = null;
   let isProcessing = false;
@@ -33,7 +36,7 @@ const startWatch = async (git, options) => {
       });
       cooldownUntil = Date.now() + 2000;
       isProcessing = false;
-    }, 5000);
+    }, debounceMs);
   };
 
   const watcher = chokidar.watch(process.cwd(), {
@@ -82,6 +85,8 @@ export const runCli = async () => {
     .option("--dry-run", "Preview without committing")
     .option("--push", "Push after committing")
     .option("--watch", "Watch for changes and auto-snapshot")
+    .option("--interval <seconds>", "Watch debounce interval in seconds", "5")
+    .option("--every <seconds>", "Alias for --interval", "5")
     .option("--prefix <value>", "Prefix commit messages (e.g., dev)");
 
   program
@@ -124,6 +129,9 @@ export const runCli = async () => {
 
   program.action(async (options) => {
     if (options.watch) {
+      if (options.every && options.every !== "5") {
+        options.interval = options.every;
+      }
       await startWatch(createGit(), options);
       return;
     }

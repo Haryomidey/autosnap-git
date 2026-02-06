@@ -37,7 +37,9 @@ Snapshots only if there are changes. If nothing changed, Autosnap exits cleanly.
 autosnap                 # auto snapshot
 autosnap --dry-run        # preview without committing
 autosnap --push           # commit + push
-autosnap --watch          # watch for file changes
+autosnap --watch          # watch for file changes (5s debounce)
+autosnap --watch --interval 300  # commit after 300s of inactivity
+autosnap --watch --every 300     # alias for --interval
 autosnap --prefix dev     # prefix commit messages
 
 autosnap log              # recent commits
