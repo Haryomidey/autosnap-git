@@ -37,5 +37,9 @@
     "cli",
     "automation"
   ],
+   "repository": {
+    "type": "git",
+    "url": "https://github.com/Haryomidey/autosnap-git"
+  },
   "license": "MIT"
 }
