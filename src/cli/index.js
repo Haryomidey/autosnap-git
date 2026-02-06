@@ -80,7 +80,7 @@ export const runCli = async () => {
   const program = new Command();
 
   program
-    .name("autosnap")
+    .name("autosnap-git")
     .description("Automatic Git snapshots with friendly history views.")
     .option("--dry-run", "Preview without committing")
     .option("--push", "Push after committing")

@@ -1,6 +1,6 @@
-# Autosnap
+# Autosnap Git
 
-Autosnap is a production-ready CLI that automates Git snapshots and gives a clean, friendly view of your commit history.
+Autosnap Git is a production-ready CLI that automates Git snapshots and gives a clean, friendly view of your commit history.
 
 ## Features
 
@@ -14,7 +14,7 @@ Autosnap is a production-ready CLI that automates Git snapshots and gives a clea
 ## Install
 
 ```bash
-npm install -g autosnap
+npm install -g autosnap-git
 ```
 
 For local development:
@@ -26,7 +26,7 @@ npm link
 ## Usage
 
 ```bash
-autosnap
+autosnap-git
 ```
 
 Snapshots only if there are changes. If nothing changed, Autosnap exits cleanly.
@@ -34,21 +34,21 @@ Snapshots only if there are changes. If nothing changed, Autosnap exits cleanly.
 ### CLI Reference
 
 ```bash
-autosnap                 # auto snapshot
-autosnap --dry-run        # preview without committing
-autosnap --push           # commit + push
-autosnap --watch          # watch for file changes (5s debounce)
-autosnap --watch --interval 300  # commit after 300s of inactivity
-autosnap --watch --every 300     # alias for --interval
-autosnap --prefix dev     # prefix commit messages
+autosnap-git                 # auto snapshot
+autosnap-git --dry-run        # preview without committing
+autosnap-git --push           # commit + push
+autosnap-git --watch          # watch for file changes (5s debounce)
+autosnap-git --watch --interval 300  # commit after 300s of inactivity
+autosnap-git --watch --every 300     # alias for --interval
+autosnap-git --prefix dev     # prefix commit messages
 
-autosnap log              # recent commits
-autosnap log -n 10         # last 10 commits
-autosnap log --full        # detailed commit info
-autosnap last             # show last commit
-autosnap diff             # diff vs last commit
-autosnap diff --stat      # summary diff
-autosnap status           # git status summary
+autosnap-git log              # recent commits
+autosnap-git log -n 10         # last 10 commits
+autosnap-git log --full        # detailed commit info
+autosnap-git last             # show last commit
+autosnap-git diff             # diff vs last commit
+autosnap-git diff --stat      # summary diff
+autosnap-git status           # git status summary
 ```
 
 ## Commit Message Rules
@@ -80,11 +80,11 @@ On first run, Autosnap prints a warning so you can double-check changes.
 ## Examples
 
 ```bash
-autosnap
-autosnap --prefix dev
-autosnap log -n 3
-autosnap diff --stat
-autosnap --watch --dry-run
+autosnap-git
+autosnap-git --prefix dev
+autosnap-git log -n 3
+autosnap-git diff --stat
+autosnap-git --watch --dry-run
 ```
 
 ## FAQ

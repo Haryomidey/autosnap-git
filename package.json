@@ -1,10 +1,10 @@
 {
-  "name": "autosnap",
+  "name": "autosnap-git",
   "version": "1.0.0",
   "description": "Production-ready CLI for automatic Git snapshots.",
   "type": "module",
   "bin": {
-    "autosnap": "./bin/autosnap.js"
+    "autosnap-git": "./bin/autosnap.js"
   },
   "files": [
     "bin",
