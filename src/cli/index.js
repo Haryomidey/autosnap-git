@@ -87,7 +87,7 @@ export const runCli = async () => {
     .option("--watch", "Watch for changes and auto-snapshot")
     .option("--interval <seconds>", "Watch debounce interval in seconds", "5")
     .option("--every <seconds>", "Alias for --interval", "5")
-    .option("--prefix <value>", "Prefix commit messages (e.g., dev)");
+    .option("--prefix <value>", "Commit tag (e.g., FIX, CHORE, FEAT)");
 
   program
     .command("log")

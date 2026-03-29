@@ -17,19 +17,85 @@ describe("commit messaging", () => {
     const message = buildCommitMessage({
       firstCommit: true,
       prefix: "",
+      status: {
+        created: ["a.js"],
+        modified: [],
+        deleted: [],
+        not_added: [],
+        renamed: [],
+      },
       files: ["a.js"],
     });
-    expect(message).toBe("Initial snapshot");
+    expect(message).toBe("[CHORE]: initialize project snapshot");
   });
 
-  it("adds prefix and filenames for later commits", () => {
+  it("builds a readable message for later commits", () => {
     const message = buildCommitMessage({
       firstCommit: false,
       prefix: "dev",
-      files: ["a.js", "b.js"],
+      status: {
+        created: [],
+        modified: ["src/cli/index.js", "README.md"],
+        deleted: [],
+        not_added: [],
+        renamed: [],
+      },
+      files: ["src/cli/index.js", "README.md"],
     });
-    expect(message.startsWith("dev: Auto snapshot:")).toBe(true);
-    expect(message.includes("a.js")).toBe(true);
+    expect(message).toBe("[DEV]: update cli and docs");
+  });
+
+  it("chooses action words from the change type", () => {
+    const message = buildCommitMessage({
+      firstCommit: false,
+      prefix: "feat",
+      status: {
+        created: ["src/utils/time.js"],
+        modified: [],
+        deleted: [],
+        not_added: [],
+        renamed: [],
+      },
+      files: ["src/utils/time.js"],
+    });
+    expect(message).toBe("[FEAT]: add utilities");
+  });
+
+  it("infers a small-change tag when no prefix is provided", () => {
+    const message = buildCommitMessage({
+      firstCommit: false,
+      prefix: "",
+      status: {
+        created: [],
+        modified: ["README.md"],
+        deleted: [],
+        not_added: [],
+        renamed: [],
+      },
+      files: ["README.md"],
+    });
+    expect(message).toBe("[CHORE]: update docs");
+  });
+
+  it("infers a larger tag for broader watch-style edits", () => {
+    const message = buildCommitMessage({
+      firstCommit: false,
+      prefix: "",
+      status: {
+        created: ["src/cli/index.js", "src/git/commit.js"],
+        modified: ["README.md", "test/commit.test.js"],
+        deleted: [],
+        not_added: [],
+        renamed: [],
+      },
+      files: [
+        "src/cli/index.js",
+        "src/git/commit.js",
+        "README.md",
+        "test/commit.test.js",
+      ],
+    });
+    expect(message).toBe("[OVERHAUL]: update cli, git workflow, and docs");
   });
 });
 

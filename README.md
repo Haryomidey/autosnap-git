@@ -40,7 +40,7 @@ autosnap-git --push           # commit + push
 autosnap-git --watch          # watch for file changes (5s debounce)
 autosnap-git --watch --interval 300  # commit after 300s of inactivity
 autosnap-git --watch --every 300     # alias for --interval
-autosnap-git --prefix dev     # prefix commit messages
+autosnap-git --prefix fix     # commit tag override -> [FIX]:
 
 autosnap-git log              # recent commits
 autosnap-git log -n 10         # last 10 commits
@@ -53,10 +53,14 @@ autosnap-git status           # git status summary
 
 ## Commit Message Rules
 
-- First commit: `Initial snapshot`
-- Later commits: `Auto snapshot: YYYY-MM-DD HH:mm`
-- Optional file hints are appended for context
-- `--prefix` adds a prefix such as `dev:`
+- First commit: `[CHORE]: initialize project snapshot`
+- Later commits use short summaries such as `[UPDATE]: update cli and docs`
+- The snapshot time is still shown in CLI output after a save or dry run
+- If you do not pass `--prefix`, Autosnap picks a tag from the snapshot size:
+- small edits -> `[CHORE]:`
+- medium edits -> `[UPDATE]:`
+- broad edits -> `[OVERHAUL]:`
+- `--prefix` sets the tag (e.g., `--prefix fix` => `[FIX]: ...`)
 
 ## Watch Mode
 
@@ -65,6 +69,7 @@ autosnap-git status           # git status summary
 - Debounce of 5 seconds
 - Ignores `.git`, `node_modules`, `dist`, and `coverage`
 - Prevents recursive commits
+- Automatically infers the tag when `--prefix` is omitted
 - Shows live activity events
 
 ## Safety
